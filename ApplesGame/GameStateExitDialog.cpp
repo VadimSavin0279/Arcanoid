@@ -3,7 +3,7 @@
 
 namespace ApplesGame
 {
-	void GameStateExitDialogData::InitGameStateExitDialog()
+	void GameStateExitDialogData::Init()
 	{
 		assert(font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
 
@@ -48,12 +48,7 @@ namespace ApplesGame
 		background.setFillColor(sf::Color(0, 0, 0, 128)); // Semi-transparent black
 	}
 
-	void GameStateExitDialogData::ShutdownGameStateExitDialog()
-	{
-		// We dont need to free resources here, because they will be freed automatically
-	}
-
-	void GameStateExitDialogData::HandleGameStateExitDialogWindowEvent(const sf::Event& event)
+	void GameStateExitDialogData::HandleWindowEvent(const sf::Event& event)
 	{
 		Game& game = Application::Instance().GetGame();
 
@@ -106,12 +101,12 @@ namespace ApplesGame
 		}
 	}
 
-	void GameStateExitDialogData::UpdateGameStateExitDialog(float timeDelta)
+	void GameStateExitDialogData::Update(float timeDelta)
 	{
 
 	}
 
-	void GameStateExitDialogData::DrawGameStateExitDialog(sf::RenderWindow& window)
+	void GameStateExitDialogData::Draw(sf::RenderWindow& window)
 	{
 
 		sf::Vector2f windowSize = (sf::Vector2f)window.getSize();

@@ -35,7 +35,7 @@ namespace ApplesGame
 		return { playerPosition.x - PLAYER_WIDTH / 2, playerPosition.y - PLAYER_HEIGHT / 2, PLAYER_WIDTH, PLAYER_HEIGHT};
 	}
 
-	void Player::DrawPlayer(sf::RenderWindow& window)
+	void Player::Draw(sf::RenderWindow& window)
 	{
 		shape.setPosition(playerPosition.x, playerPosition.y);
 		window.draw(shape);

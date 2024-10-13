@@ -52,6 +52,12 @@
     <ClCompile Include="MenuItem.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateWin.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -91,6 +97,18 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="MenuItem.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateData.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateWin.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>

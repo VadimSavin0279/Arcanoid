@@ -5,7 +5,7 @@
 
 namespace ApplesGame
 {
-	void GameStatePlayingData::InitGameStatePlaying()
+	void GameStatePlayingData::Init()
 	{
 		Game& game = Application::Instance().GetGame();
 		// set textures
@@ -17,14 +17,19 @@ namespace ApplesGame
 		player.SetPlayerPosition({ game.GetScreenRect().size.x / 2.f, game.GetScreenRect().size.y * 0.9f});
 		player.SetPlayerSpeed(INITIAL_SPEED);
 		player.SetPlayerDirection(PlayerDirection::Right);
+
+		int startPosition = BLOCK_SIZE / 2;
+		blocks.reserve(BLOCKS_COUNT);
+		for (int i = 0; i < BLOCKS_COUNT; ++i)
+		{
+			Block block;
+			block.SetBlockPosition({ (float)startPosition, BLOCK_SIZE / 2 });
+			blocks.push_back(block);
+			startPosition += BLOCK_SIZE + 40;
+		}
 	}
 
-	void GameStatePlayingData::ShutdownGameStatePlaying()
-	{
-		// We dont need to free resources here, because they will be freed automatically
-	}
-
-	void GameStatePlayingData::HandleGameStatePlayingWindowEvent(const sf::Event& event)
+	void GameStatePlayingData::HandleWindowEvent(const sf::Event& event)
 	{
 		Game& game = Application::Instance().GetGame();
 		if (event.type == sf::Event::KeyPressed)
@@ -52,7 +57,7 @@ namespace ApplesGame
 		}
 	}
 
-	void GameStatePlayingData::UpdateGameStatePlaying(float timeDelta)
+	void GameStatePlayingData::Update(float timeDelta)
 	{
 		Game& game = Application::Instance().GetGame();
 
@@ -69,6 +74,23 @@ namespace ApplesGame
 
 		Circle ballShape = ball.GetBallCollider();
 
+		for (auto& block : blocks)
+		{
+			if (hasCollideOut(block.GetBlockCollider(), ballShape) && !block.isDead)
+			{
+				block.isDead = true;
+				ChangeVelocityVectorAfterColissionWithObjects(ball, FindEdgeOfColission(block.GetBlockCollider(), ballShape));
+
+				++score;
+
+				if (score == 1)
+				{
+					game.PushGameState(GameStateType::Win, false);
+					return;
+				}
+			}
+		}
+
 		if (hasCollideIn(game.GetScreenRect(), 
 			{ballShape.center.x - BALL_SIZE / 2, ballShape.center.y - BALL_SIZE / 2, BALL_SIZE, BALL_SIZE}))
 		{
@@ -77,7 +99,7 @@ namespace ApplesGame
 				game.PushGameState(GameStateType::GameOver, false);
 			}
 			else {
-				ChangeVelocityVectorAfterColissionWithObjects(ball, FindEdgeOfColission(game.GetScreenRect(), ball.GetBallCollider()));
+				ChangeVelocityVectorAfterColissionWithObjects(ball, FindEdgeOfColissionWithScreen(game.GetScreenRect(), ball.GetBallCollider()));
 			}
 		}
 
@@ -150,9 +172,14 @@ namespace ApplesGame
 		}
 	}
 
-	void GameStatePlayingData::DrawGameStatePlaying(sf::RenderWindow& window)
+	void GameStatePlayingData::Draw(sf::RenderWindow& window)
 	{
-		player.DrawPlayer(window);
-		ball.DrawBall(window);
+		player.Draw(window);
+		ball.Draw(window);
+
+		for(auto& block : blocks)
+		{
+			block.Draw(window);
+		}
 	}
 }

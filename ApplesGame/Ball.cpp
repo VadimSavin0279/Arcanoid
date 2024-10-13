@@ -12,7 +12,7 @@ namespace ApplesGame
 		return { ballPosition, BALL_SIZE / 2.f };
 	}
 
-	void Ball::DrawBall(sf::RenderWindow& window)
+	void Ball::Draw(sf::RenderWindow& window)
 	{
 		shape.setPosition(ballPosition.x, ballPosition.y);
 		window.draw(shape);

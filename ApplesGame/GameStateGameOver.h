@@ -1,10 +1,11 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Constants.h"
+#include "GameStateData.h"
 
 namespace ApplesGame
 {
-	class GameStateGameOverData
+	class GameStateGameOverData : public GameStateData
 	{
 	private:
 		sf::Font font;
@@ -17,13 +18,12 @@ namespace ApplesGame
 	public:
 		GameStateGameOverData()
 		{
-			InitGameStateGameOver();
+			Init();
 		}
 
-		void InitGameStateGameOver();
-		void ShutdownGameStateGameOver();
-		void HandleGameStateGameOverWindowEvent(const sf::Event& event);
-		void UpdateGameStateGameOver(float timeDelta);
-		void DrawGameStateGameOver(sf::RenderWindow& window);
+		void Init() override;
+		void HandleWindowEvent(const sf::Event& event) override;
+		void Update(float timeDelta) override;
+		void Draw(sf::RenderWindow& window) override;
 	};
 }

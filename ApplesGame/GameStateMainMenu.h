@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Menu.h"
+#include "GameStateData.h"
 
 namespace ApplesGame
 {
-	class GameStateMainMenuData
+	class GameStateMainMenuData : public GameStateData
 	{
 	private:
 		sf::Font font;
@@ -20,13 +21,12 @@ namespace ApplesGame
 	public:
 		GameStateMainMenuData()
 		{
-			InitGameStateMainMenu();
+			Init();
 		}
 
-		void InitGameStateMainMenu();
-		void ShutdownGameStateMainMenu();
-		void HandleGameStateMainMenuWindowEvent(const sf::Event& event);
-		void UpdateGameStateMainMenu(float timeDelta);
-		void DrawGameStateMainMenu(sf::RenderWindow& window);
+		void Init() override;
+		void HandleWindowEvent(const sf::Event& event) override;
+		void Update(float timeDelta) override;
+		void Draw(sf::RenderWindow& window) override;
 	};
 }

@@ -54,6 +54,7 @@ namespace ApplesGame
 
 	bool hasCollideOut(const Rectangle& rect1, const Circle& circle2);
 
+	Orientation FindEdgeOfColissionWithScreen(const Rectangle& rect, const Circle& circle);
 	Orientation FindEdgeOfColission(const Rectangle& rect, const Circle& circle);
 
 	void SetSpriteSize(sf::Sprite& sprite, float desiredWidth, float desiredHeight);

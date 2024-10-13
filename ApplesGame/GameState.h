@@ -3,6 +3,7 @@
 #include "GameStateExitDialog.h"
 #include "GameStateMainMenu.h"
 #include "GameStateGameOver.h"
+#include "GameStateWin.h"
 #include <assert.h>
 
 namespace ApplesGame
@@ -13,6 +14,7 @@ namespace ApplesGame
 		MainMenu,
 		Playing,
 		GameOver,
+		Win,
 		ExitDialog
 	};
 
@@ -25,7 +27,7 @@ namespace ApplesGame
 	{
 	private:
 		GameStateType type = GameStateType::None;
-		void* data = nullptr;
+		std::unique_ptr< GameStateData> data = nullptr;
 		bool isExclusivelyVisible = false;
 	public:
 		GameState(GameStateType type): type(type)
@@ -34,22 +36,27 @@ namespace ApplesGame
 			{
 			case GameStateType::MainMenu:
 			{
-				data = new GameStateMainMenuData();
+				data = std::make_unique<GameStateMainMenuData>();
 				break;
 			}
 			case GameStateType::Playing:
 			{
-				data = new GameStatePlayingData();
+				data = std::make_unique<GameStatePlayingData>();
 				break;
 			}
 			case GameStateType::GameOver:
 			{
-				data = new GameStateGameOverData();
+				data = std::make_unique<GameStateGameOverData>();
+				break;
+			}
+			case GameStateType::Win:
+			{
+				data = std::make_unique<GameStateWinData>();
 				break;
 			}
 			case GameStateType::ExitDialog:
 			{
-				data = new GameStateExitDialogData();
+				data = std::make_unique<GameStateExitDialogData>();
 				break;
 			}
 			default:
@@ -59,40 +66,7 @@ namespace ApplesGame
 		}
 
 		~GameState()
-		{
-			switch (type)
-			{
-			case GameStateType::MainMenu:
-			{
-				(*(GameStateMainMenuData*)data).ShutdownGameStateMainMenu();
-				delete (GameStateMainMenuData*)data;
-				break;
-			}
-			case GameStateType::Playing:
-			{
-				(*(GameStatePlayingData*)data).ShutdownGameStatePlaying();
-				delete (GameStatePlayingData*)data;
-				break;
-			}
-			case GameStateType::GameOver:
-			{
-				(*(GameStateGameOverData*)data).ShutdownGameStateGameOver();
-				delete (GameStateGameOverData*)data;
-				break;
-			}
-			case GameStateType::ExitDialog:
-			{
-				(*(GameStateExitDialogData*)data).ShutdownGameStateExitDialog();
-				delete (GameStateExitDialogData*)data;
-				break;
-			}
-			default:
-				assert(false);
-				break;
-			}
-
-			data = nullptr;
-		}
+		{}
 		
 		bool isExclusiveVisible() const;
 

@@ -5,7 +5,7 @@
 
 namespace ApplesGame
 {
-	void GameStateGameOverData::InitGameStateGameOver()
+	void GameStateGameOverData::Init()
 	{
 		assert(font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
 
@@ -25,12 +25,7 @@ namespace ApplesGame
 		hintText.setOrigin(GetItemOrigin(hintText, { 0.5f, 1.f }));
 	}
 
-	void GameStateGameOverData::ShutdownGameStateGameOver()
-	{
-		// We dont need to free resources here, because they will be freed automatically
-	}
-
-	void GameStateGameOverData::HandleGameStateGameOverWindowEvent(const sf::Event& event)
+	void GameStateGameOverData::HandleWindowEvent(const sf::Event& event)
 	{
 		Game& game = Application::Instance().GetGame();
 		if (event.type == sf::Event::KeyPressed)
@@ -46,7 +41,7 @@ namespace ApplesGame
 		}
 	}
 
-	void GameStateGameOverData::UpdateGameStateGameOver(float timeDelta)
+	void GameStateGameOverData::Update(float timeDelta)
 	{
 		timeSinceGameOver += timeDelta;
 
@@ -54,7 +49,7 @@ namespace ApplesGame
 		gameOverText.setFillColor(gameOverTextColor);
 	}
 
-	void GameStateGameOverData::DrawGameStateGameOver(sf::RenderWindow& window)
+	void GameStateGameOverData::Draw(sf::RenderWindow& window)
 	{
 		sf::Vector2f viewSize = window.getView().getSize();
 

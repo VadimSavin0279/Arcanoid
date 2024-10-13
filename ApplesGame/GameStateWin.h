@@ -1,19 +1,17 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include "Menu.h"
-#include <assert.h>
+
+#include "SFML/Graphics.hpp"
 #include "Constants.h"
 #include "GameStateData.h"
+#include "Menu.h"
 
 namespace ApplesGame
 {
-	class GameStateExitDialogData : public GameStateData
+	class GameStateWinData : public GameStateData
 	{
 	private:
 		sf::Font font;
 
-		MenuItem continueGameItem;
-		MenuItem exitGameItem;
 		MenuItem yesItem;
 		MenuItem noItem;
 
@@ -22,7 +20,7 @@ namespace ApplesGame
 		sf::RectangleShape background;
 
 	public:
-		GameStateExitDialogData()
+		GameStateWinData()
 		{
 			Init();
 		}

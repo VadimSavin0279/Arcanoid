@@ -1,6 +1,7 @@
 #pragma once
 #include "Math.h"
 #include "Constants.h"
+#include "GameObject.h"
 
 namespace ApplesGame
 {
@@ -9,7 +10,7 @@ namespace ApplesGame
 		None = 0, Left, Right
 	};
 
-	class Player
+	class Player : public GameObject
 	{
 	private:
 		Position2D playerPosition = { SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f };
@@ -39,7 +40,7 @@ namespace ApplesGame
 
 		Rectangle GetPlayerCollider() const;
 
-		void DrawPlayer(sf::RenderWindow& window);
+		void Draw(sf::RenderWindow& window);
 
 		void UpdatePlayer(const float deltaTime);
 	};

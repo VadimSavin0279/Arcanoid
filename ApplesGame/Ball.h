@@ -1,10 +1,11 @@
 #pragma once
 #include "Math.h"
 #include "Constants.h"
+#include "GameObject.h"
 
 namespace ApplesGame
 {
-	class Ball
+	class Ball : public GameObject
 	{
 	public:
 		Ball() {
@@ -17,7 +18,7 @@ namespace ApplesGame
 
 		Circle GetBallCollider() const;
 
-		void DrawBall(sf::RenderWindow& window);
+		void Draw(sf::RenderWindow& window);
 
 		void UpdateBall(const float deltaTime);
 

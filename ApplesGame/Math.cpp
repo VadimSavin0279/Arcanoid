@@ -27,23 +27,44 @@ namespace ApplesGame
 		return (dx * dx + dy * dy) < circle.radius * circle.radius;
 	}
 
+	Orientation FindEdgeOfColissionWithScreen(const Rectangle& rect, const Circle& circle)
+	{
+		if (circle.center.y - circle.radius < 0)
+		{
+			return Orientation::Horizontal;
+		}
+		else if (circle.center.x + circle.radius > rect.size.x)
+		{
+			return Orientation::Vertical;
+		}
+		else if (circle.center.x - circle.radius < 0)
+		{
+			return Orientation::Vertical;
+		}
+		else if (circle.center.y + circle.radius > rect.size.y)
+		{
+			return Orientation::Horizontal;
+		}
+	}
+
 	Orientation FindEdgeOfColission(const Rectangle& rect, const Circle& circle)
 	{
-		float overlapLeft = circle.center.x - circle.radius - rect.position.x;
-		float overlapRight = (rect.position.x + rect.size.x) - (circle.center.x + circle.radius);
-		float overlapTop = circle.center.y - circle.radius - rect.position.y;
-		float overlapBottom = (rect.position.y + rect.size.y) - (circle.center.y + circle.radius);
-
-		float minOverlap = std::min({ std::abs(overlapLeft), std::abs(overlapRight), std::abs(overlapTop), std::abs(overlapBottom) });
-
-		if (minOverlap == std::abs(overlapLeft))
-			return Orientation::Vertical;
-		else if (minOverlap == std::abs(overlapRight))
-			return Orientation::Vertical;
-		else if (minOverlap == std::abs(overlapTop))
+		if (circle.center.y + circle.radius > rect.position.y + rect.size.y / 2)
+		{
 			return Orientation::Horizontal;
-		else
+		}
+		else if (circle.center.x + circle.radius < rect.position.x - rect.size.x / 2)
+		{
+			return Orientation::Vertical;
+		} 
+		else if (circle.center.x - circle.radius > rect.position.x + rect.size.x / 2)
+		{
+			return Orientation::Vertical;
+		}
+		else if (circle.center.y - circle.radius < rect.position.y - rect.size.y / 2)
+		{
 			return Orientation::Horizontal;
+		}
 	}
 
 	sf::Vector2f GetSpriteScale(const sf::Sprite& sprite, const Vector2D& desiredSize)
