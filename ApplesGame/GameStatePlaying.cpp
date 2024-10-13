@@ -83,7 +83,7 @@ namespace ApplesGame
 
 				++score;
 
-				if (score == 1)
+				if (score == BLOCKS_COUNT)
 				{
 					game.PushGameState(GameStateType::Win, false);
 					return;

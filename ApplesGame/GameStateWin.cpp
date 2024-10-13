@@ -14,7 +14,7 @@ namespace ApplesGame
 
 		menu.GetRootItem()->hintText.setCharacterSize(48);
 		menu.GetRootItem()->hintText.setFillColor(sf::Color::Red);
-		menu.GetRootItem()->SetChildrenOrientation(Orientation::Vertical);
+		menu.GetRootItem()->SetChildrenOrientation(Orientation::Horizontal);
 		menu.GetRootItem()->SetChildrenAlignment(Alignment::Middle);
 		menu.GetRootItem()->SetChildrenSpacing(10.f);
 		menu.GetRootItem()->SetChildren({ &yesItem, &noItem });
